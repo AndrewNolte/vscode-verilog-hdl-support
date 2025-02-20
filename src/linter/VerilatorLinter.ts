@@ -3,6 +3,8 @@ import * as vscode from 'vscode'
 import { ext } from '../extension'
 import { FileDiagnostic, isSystemVerilog } from '../utils'
 import BaseLinter from './BaseLinter'
+import * as path from 'path'
+import { getWorkspaceFolder } from '../utils'
 
 export default class VerilatorLinter extends BaseLinter {
   constructor(name: string) {
@@ -87,6 +89,13 @@ export default class VerilatorLinter extends BaseLinter {
       let elen = pline.length - pindex
       n += 2
       /// right index
+
+      //Convert to abs paths in case that verilator outputs relative paths
+      const workspacePath = getWorkspaceFolder()
+      if (workspacePath && !path.isAbsolute(file)) {
+          file = path.resolve(workspacePath, file)
+      }
+      file = path.normalize(file)
 
       if (!isNaN(lineNum)) {
         diagnostics.push({

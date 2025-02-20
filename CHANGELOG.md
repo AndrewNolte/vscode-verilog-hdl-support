@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Fix bug with lint results not showing correctly for multi-level directories when using verilator as linter.
+
 ## [24.11.0] - 2024-11-05
 - Prevent file base names from being recognized as a hierarchical path.
 - Improved completions:
@@ -112,7 +115,7 @@
 - Improve Verilator package resolution
   - Verilator requires packages be specified beforehand, so this will iterate the verilator lint step, prepending packages that it complains about. More work should be done on this to produce a topo sort of the packages
 - use execFile for ctags (no shell)
-- Add index component 
+- Add index component
   - symlink index (.sv_cache/files)
   - in-memory file index, makes everything much much snappier
 
